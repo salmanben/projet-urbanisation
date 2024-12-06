@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 spring:
   cloud:
     gateway:
@@ -19,4 +19,25 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/api/me
+        - id: team-service
+          uri: lb://TEAM-SERVICE
+          predicates:
+            - Path=/api/team/**
+        - id: citizen-service
+          uri: lb://CITIZEN-SERVICE
+          predicates:
+            - Path=/api/citizen/**
+
+        - id: category-service
+          uri: lb://CATEGORY-SERVICE
+          predicates:
+            - Path=/api/category/**
+
+        - id: hospital-service
+          uri: lb://HOSPITAL-SERVICE
+          predicates:
+            - Path=/api/hospital/**
+
+
+
             

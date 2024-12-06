@@ -15,6 +15,18 @@
         <module name="customer" />
         <module name="order" />
       </profile>
+      <profile name="Annotation profile for citizen-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="hospital-service" />
+        <module name="category-service" />
+        <module name="citizen-service" />
+        <module name="team-service" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="test" target="17" />
@@ -22,12 +34,16 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="category-service" options="-parameters" />
+      <module name="citizen-service" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="customer" options="-parameters" />
       <module name="discovery-server" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="hospital-service" options="-parameters" />
       <module name="order" options="-parameters" />
       <module name="product" options="-parameters" />
+      <module name="team-service" options="-parameters" />
       <module name="test" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
