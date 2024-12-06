@@ -1,14 +1,16 @@
-package ma.ensa.ecommerce;
+package ma.ensa.urgence;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CustomerApplication {
+public class GatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CustomerApplication.class, args);
-		System.out.println("GOOOOOOOOD Customer service !!!!!!!!!!!!");
+		SpringApplication.run(GatewayApplication.class, args);
+		System.out.println("Gateway Application!!!!!!!!");
+
+
 	}
 
 }

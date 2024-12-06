@@ -1,8 +1,8 @@
-package ma.ensa.ecommerce.controller;
+package ma.ensa.urgence.controller;
 
 import lombok.RequiredArgsConstructor;
-import ma.ensa.ecommerce.model.Customer;
-import ma.ensa.ecommerce.service.CustomerService;
+import ma.ensa.urgence.model.Customer;
+import ma.ensa.urgence.service.CustomerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ public class CustomerController {
 
     @GetMapping("/test")
     public String test() {
-        return "TEST";
+        return "TEST cUSTOMER";
     }
 
     @GetMapping

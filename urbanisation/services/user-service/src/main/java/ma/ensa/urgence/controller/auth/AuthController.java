@@ -35,8 +35,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        System.out.println(passwordEncoder.encode("12345"));
         try {
             AuthResponse authResponse = authService.login(loginRequest.getEmail(), loginRequest.getPassword());
             // Créer un objet auth avec les données
@@ -59,7 +57,11 @@ public class AuthController {
         Map<String, String> userInfo = new HashMap<>();
         userInfo.put("email", userEmail);
         return ResponseEntity.ok(userInfo);
+
     }
+
+
+
 
 
 

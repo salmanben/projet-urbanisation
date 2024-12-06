@@ -1,8 +1,8 @@
-package ma.ensa.ecommerce.service;
+package ma.ensa.urgence.service;
 
 import lombok.RequiredArgsConstructor;
-import ma.ensa.ecommerce.model.Customer;
-import ma.ensa.ecommerce.repository.CustomerRepository;
+import ma.ensa.urgence.model.Customer;
+import ma.ensa.urgence.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

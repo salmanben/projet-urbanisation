@@ -1,10 +1,10 @@
-package ma.ensa.ecommerce;
+package ma.ensa.urgence;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CustomerApplicationTests {
+class GatewayApplicationTests {
 
 	@Test
 	void contextLoads() {

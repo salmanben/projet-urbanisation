@@ -1,4 +1,4 @@
-package ma.ensa.ecommerce.model;
+package ma.ensa.urgence.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

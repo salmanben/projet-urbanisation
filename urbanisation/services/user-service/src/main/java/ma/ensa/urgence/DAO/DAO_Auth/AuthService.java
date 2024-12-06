@@ -17,6 +17,7 @@ public class AuthService {
     private final IServiceUser UserService;
     private final PasswordEncoder passwordEncoder;
 
+
     public AuthService(ma.ensa.urgence.Service.UserService UserService, PasswordEncoder passwordEncoder) {
         this.UserService = UserService;
         this.passwordEncoder = passwordEncoder;
