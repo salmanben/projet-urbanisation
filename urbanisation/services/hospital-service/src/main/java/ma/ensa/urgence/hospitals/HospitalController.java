@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @RequestMapping("/api/hospital")
 @RestController
 public class HospitalController {
 
-
     private final HospitalService hospitalService;
+    public HospitalController(HospitalService hospitalService) {
+        this.hospitalService = hospitalService;
+    }
 
     @GetMapping("/{id}")
     public Hospital getId(@PathVariable("id") int id) {
-        System.out.println("\n\nid=" + id + "\n\n");
         return hospitalService.getHospitalById(id);
     }
 

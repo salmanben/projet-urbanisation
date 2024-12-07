@@ -6,12 +6,17 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
+
 @Service
 public class HospitalService {
 
     private final HospitalDao hospitalDao;
     private final CodeDao codeDao;
+
+    public HospitalService(HospitalDao hospitalDao, CodeDao codeDao) {
+        this.hospitalDao = hospitalDao;
+        this.codeDao = codeDao;
+    }
 
     public Hospital getHospitalById(int id) {
         return hospitalDao.findById(id).orElse(null);

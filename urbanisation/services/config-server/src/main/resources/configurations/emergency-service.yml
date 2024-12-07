@@ -1,0 +1,23 @@
+server:
+  port: 8768
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/emergency_service
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: citizenGroup
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: '*'
+        spring.json.type.mapping: CitizenDemand:ma.ensa.urgence.demands.DemandRequest
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

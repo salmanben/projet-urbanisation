@@ -18,4 +18,14 @@ public class Category {
     private String name;
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    public Category(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+
+
+
+
 }

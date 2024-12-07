@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,9 +26,8 @@ public class Citizen {
     private String name;
     private String address;
 
-    @Column(name = "phone_number")
-    @JsonProperty("phone_number")
-    private String phoneNumber;
+    private String phone;
+    private LocalDate birthdate;
 
     private String email;
 

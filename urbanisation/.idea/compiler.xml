@@ -12,7 +12,6 @@
         <module name="discovery-server" />
         <module name="user-service" />
         <module name="gateway" />
-        <module name="customer" />
         <module name="order" />
       </profile>
       <profile name="Annotation profile for citizen-service" enabled="true">
@@ -21,14 +20,18 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
         <module name="hospital-service" />
         <module name="category-service" />
         <module name="citizen-service" />
         <module name="team-service" />
+        <module name="emergency-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="customer" target="17" />
+      <module name="team-service (1)" target="17" />
       <module name="test" target="17" />
     </bytecodeTargetLevel>
   </component>
@@ -39,11 +42,13 @@
       <module name="config-server" options="-parameters" />
       <module name="customer" options="-parameters" />
       <module name="discovery-server" options="-parameters" />
+      <module name="emergency-service" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="hospital-service" options="-parameters" />
       <module name="order" options="-parameters" />
       <module name="product" options="-parameters" />
       <module name="team-service" options="-parameters" />
+      <module name="team-service (1)" options="-parameters" />
       <module name="test" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>

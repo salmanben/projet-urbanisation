@@ -11,3 +11,17 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  application:
+    services:
+      category-service:
+        url: http://localhost:8081/api/category
+      emergency-service:
+        url: http://localhost:8081/api/emergency
+
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: CitizenDemand:ma.ensa.urgence.demands.DemandRequest

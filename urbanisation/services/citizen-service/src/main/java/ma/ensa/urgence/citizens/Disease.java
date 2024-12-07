@@ -6,11 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Entity(name = "diseases")
 public class Disease {
 
@@ -23,5 +22,7 @@ public class Disease {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    
 
 }

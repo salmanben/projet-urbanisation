@@ -1,5 +1,6 @@
 package ma.ensa.urgence.controller.auth;
 
+import lombok.RequiredArgsConstructor;
 import ma.ensa.urgence.DAO.DAO_Auth.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import java.util.Map;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api")
 public class AuthController {
@@ -27,11 +28,6 @@ public class AuthController {
     // Déclarez le logger
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-
-    public AuthController(AuthService authService, JwtUtil jwtUtil) {
-        this.authService = authService;
-        this.jwtUtil = jwtUtil;
-    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
