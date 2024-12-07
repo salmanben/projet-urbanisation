@@ -43,6 +43,11 @@ spring:
           predicates:
             - Path=/api/emergency/**
 
+        - id: standard-service
+          uri: lb://STANDARD-SERVICE
+          predicates:
+            - Path=/api/standard/**
+
 
 
             

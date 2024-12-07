@@ -1,0 +1,12 @@
+server:
+  port: 8769
+spring:
+  application:
+    services:
+      category-service:
+        url: http://localhost:8081/api/category
+      emergency-service:
+        url: http://localhost:8081/api/emergency
+      citizen-service:
+        url: http://localhost:8081/api/citizen
+

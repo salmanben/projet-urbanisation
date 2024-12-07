@@ -14,7 +14,7 @@
         <module name="gateway" />
         <module name="order" />
       </profile>
-      <profile name="Annotation profile for citizen-service" enabled="true">
+      <profile name="Annotation profile for team-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -24,8 +24,17 @@
         </processorPath>
         <module name="hospital-service" />
         <module name="category-service" />
-        <module name="citizen-service" />
         <module name="team-service" />
+        <module name="citizen-service" />
+      </profile>
+      <profile name="Annotation profile for standard-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="standard-service" />
         <module name="emergency-service" />
       </profile>
     </annotationProcessing>
@@ -47,6 +56,7 @@
       <module name="hospital-service" options="-parameters" />
       <module name="order" options="-parameters" />
       <module name="product" options="-parameters" />
+      <module name="standard-service" options="-parameters" />
       <module name="team-service" options="-parameters" />
       <module name="team-service (1)" options="-parameters" />
       <module name="test" options="-parameters" />

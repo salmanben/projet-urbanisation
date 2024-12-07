@@ -1,5 +1,7 @@
 package ma.ensa.urgence.demands;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +16,10 @@ public class DemandService {
     }
 
     public List<Demand> getDemands() {
-        return demandDao.findAll();
+       return demandDao.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
     }
 
     public List<Demand> getDemandsByCin(String cin) {
-        return demandDao.findByCinOrderByCreatedAt(cin);
+        return demandDao.findByCinOrderByCreatedAtDesc(cin);
     }
 }

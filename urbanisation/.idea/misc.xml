@@ -23,7 +23,6 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/services/customer/pom.xml" />
-        <option value="$PROJECT_DIR$/services/standard-service/pom.xml" />
       </set>
     </option>
   </component>
