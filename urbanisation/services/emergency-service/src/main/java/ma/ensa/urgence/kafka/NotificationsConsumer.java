@@ -20,7 +20,7 @@ public class NotificationsConsumer {
 
     @KafkaListener(topics = "citizen-topic")
     public void consumeOrderNotification(DemandRequest demandRequest) {
-       /* Demand demand = new Demand();
+        Demand demand = new Demand();
         demand.setCin(demandRequest.getCin());
         demand.setLatitude(demandRequest.getLatitude());
         demand.setLongitude(demandRequest.getLongitude());
@@ -31,7 +31,7 @@ public class NotificationsConsumer {
         String ref = UUID.randomUUID().toString().substring(0, 13);
         demand.setRef(ref);
         demand.setCreatedAt(java.time.LocalDateTime.now());
-        demandDao.save(demand);*/
+        demandDao.save(demand);
     }
     
 }
