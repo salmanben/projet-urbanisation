@@ -29,7 +29,7 @@ public class Demand {
     @Column(name = "severity_level")
     private String severityLevel;
 
-    @Column(columnDefinition = "ENUM('EN ATTENTE', 'ACCEPTÉ', 'REFUSÉ')")
+    @Column(columnDefinition = "ENUM('EN ATTENTE', 'ACCEPTÉ')")
     private String status;
 
     @Column(name = "category_id")
