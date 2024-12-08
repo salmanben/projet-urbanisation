@@ -31,6 +31,7 @@ public class NotificationsConsumer {
         String ref = UUID.randomUUID().toString().substring(0, 13);
         demand.setRef(ref);
         demand.setCreatedAt(java.time.LocalDateTime.now());
+        System.out.println("\n\n\nHellloo !!!!!!!!!!!!\n\n");
         demandDao.save(demand);
     }
     

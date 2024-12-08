@@ -15,11 +15,8 @@ public class CitizenResponse {
 
     private String cin;
     private String name;
-    private String address;
     private String phone;
     private LocalDate birthdate;
-    private String email;
-    private LocalDateTime createdAt;
     private List<Disease> diseases;
 
 }

@@ -1,6 +1,5 @@
 package ma.ensa.urgence.demands;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +20,6 @@ public class DemandService {
 
     public List<Demand> getDemandsByCin(String cin) {
         return demandDao.findByCinOrderByCreatedAtDesc(cin);
+        
     }
 }

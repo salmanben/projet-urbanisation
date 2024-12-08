@@ -38,4 +38,7 @@ public class Demand {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+
+
+
 }

@@ -10,10 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Disease {
-
-    private int id;
     private String name;
-    private String description;
-    private LocalDateTime createdAt;
-    
 }
