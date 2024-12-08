@@ -23,6 +23,8 @@ public class Team {
     private String name;
     private String phone;
     private String address;
+    private long latitude;
+    private long longitude;
 
     @JsonProperty("user_id")
     private int userId;

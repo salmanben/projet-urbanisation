@@ -2,10 +2,16 @@ package ma.ensa.urgence.Model;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.Collections;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,5 +71,42 @@ public class User {
 
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
+    }
+
+    //Authorities
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.mdp;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

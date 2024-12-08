@@ -22,6 +22,10 @@ public class Demand {
 
     private String cin;
 
+    private String city;
+
+    private String address;
+
     private long latitude;
 
     private long longitude;

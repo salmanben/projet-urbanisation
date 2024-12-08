@@ -16,11 +16,14 @@ public class AuthService {
 
     private final IServiceUser UserService;
     private final PasswordEncoder passwordEncoder;
+    private JwtUtil JwtUtil;
 
 
-    public AuthService(ma.ensa.urgence.Service.UserService UserService, PasswordEncoder passwordEncoder) {
+    public AuthService(ma.ensa.urgence.Service.UserService UserService, PasswordEncoder passwordEncoder,
+                       JwtUtil JwtUtil) {
         this.UserService = UserService;
         this.passwordEncoder = passwordEncoder;
+        this.JwtUtil = JwtUtil;
     }
 
     private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
@@ -62,7 +65,7 @@ public class AuthService {
             }
 
             // Génération du token
-            String token = JwtUtil.generateToken(email);
+            String token = JwtUtil.generateToken(User);
             logger.info("Login successful for user: {}", email);
             return new AuthResponse(utilisateur, nature, token);
 
