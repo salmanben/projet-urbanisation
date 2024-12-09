@@ -50,7 +50,6 @@ public class CitizenController {
 
     @PostMapping("/send-demand")
     public void addDemand(@RequestBody DemandRequest demandRequest) {
-        System.out.println("\n\nDemandRequest: " + demandRequest + "\n\n");
         citizenProducer.sendCitizenDemand(demandRequest);
     }
 

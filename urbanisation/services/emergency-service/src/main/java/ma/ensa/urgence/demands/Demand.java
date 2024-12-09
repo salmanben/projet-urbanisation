@@ -22,9 +22,9 @@ public class Demand {
 
     private String cin;
 
-    private String city;
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
-    private String address;
 
     private long latitude;
 

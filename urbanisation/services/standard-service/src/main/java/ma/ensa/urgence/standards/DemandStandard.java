@@ -19,6 +19,7 @@ public class DemandStandard {
     private long latitude;
     private long longitude;
     private String severityLevel;
+    private String description;
     private String status;
     private CategoryResponse category;
     private CitizenResponse citizen;

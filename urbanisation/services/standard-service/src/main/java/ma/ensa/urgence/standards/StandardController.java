@@ -46,6 +46,7 @@ public class StandardController {
             demandStandard.setLongitude(demand.getLongitude());
             demandStandard.setSeverityLevel(demand.getSeverityLevel());
             demandStandard.setStatus(demand.getStatus());
+            demandStandard.setDescription(demand.getDescription());
             CategoryResponse categoryResponse = categoryService.getCategory(demand.getCategoryId());
             demandStandard.setCategory(categoryResponse);
             demandStandard.setCitizen(citizenService.getCitizen(demand.getCin()));

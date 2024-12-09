@@ -14,6 +14,7 @@ public class DemandRequest {
     private long latitude;
     private long longitude;
     private String severityLevel;
+    private String description;
     private int categoryId;
 
 }

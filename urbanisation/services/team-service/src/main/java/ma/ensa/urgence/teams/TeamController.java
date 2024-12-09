@@ -38,7 +38,6 @@ public class TeamController {
 
     @PostMapping("/assign-team")
     public Team assignTeam(@RequestBody Demand demand) {
-        System.out.println("\n\n\n" + demand + "\n\n\n");
         return teamService.assignTeam(demand);
     }
 

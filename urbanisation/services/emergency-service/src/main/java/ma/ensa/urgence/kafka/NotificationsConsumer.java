@@ -27,6 +27,8 @@ public class NotificationsConsumer {
         demand.setSeverityLevel(demandRequest.getSeverityLevel());
         demand.setCategoryId(demandRequest.getCategoryId());
         demand.setStatus("EN ATTENTE");
+        demand.setDescription(demandRequest.getDescription());
+
         // NOW
         String ref = UUID.randomUUID().toString().substring(0, 13);
         demand.setRef(ref);

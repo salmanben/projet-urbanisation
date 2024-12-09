@@ -18,8 +18,7 @@ public class DemandResponse {
     private long longitude;
     private String severityLevel;
     private String city;
-    private String address;
-    private String status;
+    private String description;
     private int categoryId;
     private LocalDateTime createdAt;
 
