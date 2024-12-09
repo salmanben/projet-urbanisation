@@ -27,6 +27,7 @@ public class Hospital {
     private int userId;
     private long latitude;
     private long longitude;
+    private boolean avaibility;
 
 
     @Column(name = "created_at")

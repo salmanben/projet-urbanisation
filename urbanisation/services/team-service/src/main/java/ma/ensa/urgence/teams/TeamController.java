@@ -1,9 +1,12 @@
-package ma.ensa.urgence.standards;
-
+package ma.ensa.urgence.teams;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import ma.ensa.urgence.demands.Demand;
 
 import java.util.List;
 
@@ -11,12 +14,11 @@ import java.util.List;
 @RestController
 public class TeamController {
 
-    private  final TeamService teamService;
+    private final TeamService teamService;
 
     public TeamController(TeamService teamService) {
         this.teamService = teamService;
     }
-
 
     @GetMapping("")
     public List<Team> getAll() {
@@ -32,6 +34,12 @@ public class TeamController {
     public Team get() {
         int id = 1;
         return teamService.getTeamById(id);
+    }
+
+    @PostMapping("/assign-team")
+    public Team assignTeam(@RequestBody Demand demand) {
+        System.out.println("\n\n\n" + demand + "\n\n\n");
+        return teamService.assignTeam(demand);
     }
 
 }

@@ -21,3 +21,9 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  application:
+    services:
+      team-service:
+        url: http://localhost:8081/api/team
+     
+

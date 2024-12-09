@@ -1,4 +1,4 @@
-package ma.ensa.urgence.standards;
+package ma.ensa.urgence.teams;
 
 import java.time.LocalDateTime;
 
@@ -25,9 +25,11 @@ public class Team {
     private String address;
     private long latitude;
     private long longitude;
-
+    @JsonProperty("severity_level")
+    private String severityLevel;
     @JsonProperty("user_id")
     private int userId;
+    private boolean availability;
 
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
