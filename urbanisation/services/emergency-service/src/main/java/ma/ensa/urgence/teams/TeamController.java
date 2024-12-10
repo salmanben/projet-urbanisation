@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ma.ensa.urgence.demands.DemandService;
+import ma.ensa.urgence.demands.ValidatedDemandResponse;
 import ma.ensa.urgence.hospitals.AssignHospitalRequest;
 import ma.ensa.urgence.hospitals.HospitalResponse;
 
@@ -17,9 +19,11 @@ import ma.ensa.urgence.hospitals.HospitalResponse;
 public class TeamController {
 
     private final TeamService teamService;
+    private final DemandService demandService;
 
-    public TeamController(TeamService teamService) {
+    public TeamController(TeamService teamService, DemandService demandService) {
         this.teamService = teamService;
+        this.demandService = demandService;
     }
 
     @GetMapping("/{demandId}")
@@ -28,8 +32,8 @@ public class TeamController {
     }
 
     @GetMapping("/{id}/demands")
-    public List<TeamsAssignment> getTeamDemands(@PathVariable int id) {
-        return teamService.getTeamDemands(id);
+    public List<ValidatedDemandResponse> getTeamDemands(@PathVariable int id) {
+        return demandService.getTeamDemands(id);
     }
 
     @PostMapping("/valid-assignment/{id}")

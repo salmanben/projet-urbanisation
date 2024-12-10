@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ma.ensa.urgence.demands.DemandRequest;
-import ma.ensa.urgence.demands.DemandResponse;
 import ma.ensa.urgence.hospitals.AssignHospitalRequest;
 
 import java.util.HashMap;

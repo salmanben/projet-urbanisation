@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import ma.ensa.urgence.demands.DemandRequest;
-import ma.ensa.urgence.demands.DemandResponse;
 import ma.ensa.urgence.hospitals.AssignHospitalRequest;
 
 import java.util.List;

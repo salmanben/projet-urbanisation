@@ -1,6 +1,9 @@
 package ma.ensa.urgence.teams;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale.Category;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -10,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import ma.ensa.urgence.demands.Demand;
 import ma.ensa.urgence.demands.DemandDao;
+import ma.ensa.urgence.demands.ValidatedDemandResponse;
 import ma.ensa.urgence.hospitals.AssignHospitalRequest;
 import ma.ensa.urgence.hospitals.HospitalResponse;
 import ma.ensa.urgence.hospitals.HospitalsAssignment;
@@ -26,6 +30,10 @@ public class TeamService {
     private String teamServiceUrl;
     @Value("${spring.application.services.hospital-service.url}")
     private String hospitalServiceUrl;
+    // category service url
+    @Value("${spring.application.services.category-service.url}")
+    private String categoryServiceUrl;
+
 
     public TeamService(RestTemplate restTemplate, DemandDao demandDao,
             HospitalsAssignmentService hospitalsAssignmentService,
@@ -52,9 +60,8 @@ public class TeamService {
 
     }
 
-    public List<TeamsAssignment> getTeamDemands(int id) {
-        return teamsAssignmentDao.findByTeamId(id);
-    }
+
+
 
     public void validAssignment(int id) {
         TeamsAssignment teamsAssignment = teamsAssignmentDao.findByDemandId(id);

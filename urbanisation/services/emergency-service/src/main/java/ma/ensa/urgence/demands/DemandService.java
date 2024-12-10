@@ -104,4 +104,22 @@ public class DemandService {
         });
         return validatedDemandResponses;
     }
+    public List<ValidatedDemandResponse> getTeamDemands(int id) {
+        List<TeamsAssignment> teamsAssignments =  teamsAssignmentDao.findByTeamId(id);
+        List<ValidatedDemandResponse> validatedDemandResponses = new ArrayList<>();
+        teamsAssignments.forEach(teamsAssignment -> {
+            ValidatedDemandResponse validatedDemandResponse = new ValidatedDemandResponse();
+            validatedDemandResponse.setCreatedAt(teamsAssignment.getDemand().getCreatedAt());
+            CategoryDemand category = restTemplate.getForObject(categoryServiceUrl + "/" +teamsAssignment.getDemand().getCategoryId(),
+                    CategoryDemand.class);
+            validatedDemandResponse.setRequest(new Request(teamsAssignment.getDemand().getRef(), category));
+            CitizenDemand citizen = restTemplate.getForObject(citizenServiceUrl + "/cin/" + teamsAssignment.getDemand().getCin(),
+                    CitizenDemand.class);
+            validatedDemandResponse.setCitoyen(citizen);
+            validatedDemandResponse.setSeverityLevel(teamsAssignment.getDemand().getSeverityLevel());
+            validatedDemandResponse.setStatus(teamsAssignment.getDemand().getStatus());
+            validatedDemandResponses.add(validatedDemandResponse);
+        });
+        return validatedDemandResponses;
+    }
 }
