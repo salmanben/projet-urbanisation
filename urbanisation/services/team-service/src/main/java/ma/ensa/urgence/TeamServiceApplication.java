@@ -3,7 +3,7 @@ package ma.ensa.urgence;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-// exclude sec
+// exclude security
 @SpringBootApplication
 public class TeamServiceApplication {
 

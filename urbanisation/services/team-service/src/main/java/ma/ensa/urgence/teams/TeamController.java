@@ -51,6 +51,7 @@ public class TeamController {
 
     @GetMapping("/{id}")
     public Team getTeam(@PathVariable("id") int id) {
+        System.out.println("\n\nTeam: " + teamService.getTeamById(id) + "\n\n");
         return teamService.getTeamById(id);
     }
 

@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                                                                    // authentification
-                        .requestMatchers("/api/**").authenticated()
+                      //  .requestMatchers("/api/**").authenticated()
 
                         .anyRequest().permitAll())
                 // Configure OAuth2 Resource Server support

@@ -58,7 +58,9 @@ public class DemandService {
             validatedDemandResponse.setSeverityLevel(demand.getSeverityLevel());
             TeamsAssignment teamsAssignment = teamsAssignmentDao.findByDemandId(demand.getId());
             TeamDemand team = restTemplate.getForObject(teamServiceUrl + "/" + teamsAssignment.getTeamId(), TeamDemand.class);
-            validatedDemandResponse.setTeam(new TeamDemand(team.getName(), team.getTel()));
+            
+            System.out.println("\n\n\nTeam: " + team + "\n\n");
+            validatedDemandResponse.setTeam(new TeamDemand(team.getName(), team.getPhone()));
             validatedDemandResponse.setStatus(demand.getStatus());
             validatedDemandResponses.add(validatedDemandResponse);
         });

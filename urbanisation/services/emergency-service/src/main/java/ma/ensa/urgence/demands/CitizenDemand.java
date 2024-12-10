@@ -1,5 +1,7 @@
 package ma.ensa.urgence.demands;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +12,6 @@ import lombok.NoArgsConstructor;
 class CitizenDemand {
     private String cin;
     private String name;
-    private String tel;
+    private String phone;
 }
 
