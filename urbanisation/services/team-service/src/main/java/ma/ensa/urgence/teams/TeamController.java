@@ -15,7 +15,9 @@ import ma.ensa.urgence.demands.DemandRequest;
 import ma.ensa.urgence.demands.DemandResponse;
 import ma.ensa.urgence.hospitals.AssignHospitalRequest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/api/team")
 @RestController
@@ -33,22 +35,25 @@ public class TeamController {
     }
 
     @GetMapping("/demands")
-    public List<Object> getAllDemands() {
-        return teamService.getDemands();
+    public List<Object> getAllDemands(@AuthenticationPrincipal Jwt jwt) {
+        Long idLong = jwt.getClaim("id");
+        int id = idLong.intValue();
+        return teamService.getDemands(id);
     }
-
 
     @GetMapping("/me")
-    public Team get() {
-        int id = 3;
-        return teamService.getTeamById(id);
-    }
+    public Team get(@AuthenticationPrincipal Jwt jwt) {
+        Long idLong = jwt.getClaim("id");
+        int id = idLong.intValue();
 
+        return teamService.getTeamByUserId(id);
+    }
 
     @GetMapping("/{id}")
     public Team getTeam(@PathVariable("id") int id) {
         return teamService.getTeamById(id);
     }
+
     @PostMapping("/assign-team")
     public Team assignTeam(@RequestBody DemandRequest demand) {
         return teamService.assignTeam(demand);
@@ -58,6 +63,7 @@ public class TeamController {
     public void validDemand(@PathVariable("id") int id) {
         teamService.validDemand(id);
     }
+
     @GetMapping("/codes")
     public Object getCodes() {
         System.out.println("\n\n getCodes\n\n");
@@ -68,6 +74,5 @@ public class TeamController {
     public Object assignHospital(@RequestBody AssignHospitalRequest assignHospital) {
         return teamService.assignHospital(assignHospital);
     }
-
 
 }

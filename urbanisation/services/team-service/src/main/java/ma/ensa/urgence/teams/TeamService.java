@@ -33,6 +33,10 @@ public class TeamService {
         return teamDao.findById(id).orElse(null);
     }
 
+    public Team getTeamByUserId(int userId) {
+        return teamDao.findByUserId(userId);
+    }
+
 
     public Team assignTeam(DemandRequest demand) {
         String severityLevel = demand.getSeverityLevel();
@@ -79,10 +83,10 @@ public class TeamService {
         return EARTH_RADIUS * c;
     }
 
-    public List<Object> getDemands() {
-        int id = 3;
-        Team team = teamDao.findByUserId(id);
+    public List<Object> getDemands(int userId) {
+        Team team = teamDao.findByUserId(userId);
         System.out.println("\n\nTeam: " + team + "\n");
+        System.out.println("\n\nUserId: " + userId + "\n");
 
         List<Object> demands = restTemplate.getForObject(emergencyServiceUrl + "/teams/" + team.getId() + "/demands",
                 List.class);
