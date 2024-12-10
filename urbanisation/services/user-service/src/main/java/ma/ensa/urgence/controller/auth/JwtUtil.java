@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import ma.ensa.urgence.Model.User;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,6 +46,8 @@ public class JwtUtil {
             Map<String, Object> extraClaims,
             UserDetails userDetails) {
         extraClaims.put("role", userDetails.getAuthorities().iterator().next().getAuthority());
+        User user = (User) userDetails;
+        extraClaims.put("id", user.getId());        
         return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 

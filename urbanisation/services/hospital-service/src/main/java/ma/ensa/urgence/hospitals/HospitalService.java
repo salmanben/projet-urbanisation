@@ -29,4 +29,10 @@ public class HospitalService {
         }
         return codeEntity.getHospitals();
     }
+
+    public List<CodeDto> getCodes() {
+        return codeDao.findAll().stream()
+                .map(code -> new CodeDto(code.getId(), code.getCode(), code.getDescription()))
+                .toList();
+    }
 }

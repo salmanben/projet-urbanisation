@@ -1,8 +1,12 @@
 package ma.ensa.urgence.teams;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import ma.ensa.urgence.demands.Demand;
+import ma.ensa.urgence.demands.DemandRequest;
+import ma.ensa.urgence.demands.DemandResponse;
+import ma.ensa.urgence.hospitals.AssignHospitalRequest;
 
 import java.util.List;
 
@@ -10,9 +14,15 @@ import java.util.List;
 public class TeamService {
 
     private final TeamDao teamDao;
+    private final RestTemplate restTemplate;
+    @Value("${spring.application.services.emergency-service.url}")
+    private String emergencyServiceUrl;
+    @Value("${spring.application.services.hospital-service.url}")
+    private String hospitalServiceUrl;
 
-    public TeamService(TeamDao teamDao) {
+    public TeamService(TeamDao teamDao, RestTemplate restTemplate) {
         this.teamDao = teamDao;
+        this.restTemplate = restTemplate;
     }
 
     public List<Team> getTeams() {
@@ -23,7 +33,8 @@ public class TeamService {
         return teamDao.findById(id).orElse(null);
     }
 
-    public Team assignTeam(Demand demand) {
+
+    public Team assignTeam(DemandRequest demand) {
         String severityLevel = demand.getSeverityLevel();
         double demandLongitude = demand.getLongitude();
         double demandLatitude = demand.getLatitude();
@@ -66,6 +77,31 @@ public class TeamService {
 
         // Calculer la distance
         return EARTH_RADIUS * c;
+    }
+
+    public List<Object> getDemands() {
+        int id = 3;
+        Team team = teamDao.findByUserId(id);
+        System.out.println("\n\nTeam: " + team + "\n");
+
+        List<Object> demands = restTemplate.getForObject(emergencyServiceUrl + "/teams/" + team.getId() + "/demands",
+                List.class);
+
+        return demands;
+    }
+
+    public List<Object> getCodes() {
+        System.out.println("\n\nHospital Service URL: " + hospitalServiceUrl + "\n");
+        List<Object> codes = restTemplate.getForObject(hospitalServiceUrl + "/codes", List.class);
+        return codes;
+    }
+
+    public void validDemand(int id) {
+        restTemplate.postForObject(emergencyServiceUrl + "/teams/valid-assignment/" + id, null, Void.class);
+    }
+
+    public Object assignHospital(AssignHospitalRequest assignHospitalRequest) {
+        return restTemplate.postForObject(emergencyServiceUrl + "/teams/assign-hospital", assignHospitalRequest, Object.class);
     }
 
 }

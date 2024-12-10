@@ -55,8 +55,14 @@ public class StandardController {
         return demandStandards;
     }
 
+    @GetMapping("/validated-demands")
+    public List<Object> getValidatedDemands() {
+        return demandService.getValidatedDemands();
+    }
+
+
     @PostMapping("/demands/{id}")
-    public TeamResponse handleDemand(@PathVariable int id) {
-        return standardService.handleDemand(id);
+    public void handleDemand(@PathVariable int id) {
+        standardService.handleDemand(id);
     }
 }

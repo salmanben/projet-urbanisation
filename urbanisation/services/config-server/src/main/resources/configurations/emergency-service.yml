@@ -25,5 +25,11 @@ spring:
     services:
       team-service:
         url: http://localhost:8081/api/team
+      hospital-service:
+        url: http://localhost:8081/api/hospital
+      category-service:
+        url: http://localhost:8081/api/category
+      citizen-service:
+        url: http://localhost:8081/api/citizen
      
 

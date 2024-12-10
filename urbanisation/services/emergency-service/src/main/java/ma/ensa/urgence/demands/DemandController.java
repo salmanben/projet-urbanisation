@@ -26,4 +26,9 @@ public class DemandController {
     public List<Demand> getDemandsByCin(@PathVariable String cin) {
         return demandService.getDemandsByCin(cin);
     }
+
+    @GetMapping("/validated-demands")
+    public List<ValidatedDemandResponse> getValidatedDemands() {
+        return demandService.getValidatedDemands();
+    }
 }

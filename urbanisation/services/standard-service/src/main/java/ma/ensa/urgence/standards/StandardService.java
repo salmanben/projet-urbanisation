@@ -17,7 +17,7 @@ public class StandardService {
         this.restTemplate = restTemplate;
     }
 
-    public TeamResponse handleDemand(int demandId) {
-        return restTemplate.getForObject(emergencyServiceUrl + "/teams/" + demandId ,TeamResponse.class);
+    public void handleDemand(int demandId) {
+        restTemplate.getForObject(emergencyServiceUrl + "/teams/" + demandId, Void.class);
     }
 }

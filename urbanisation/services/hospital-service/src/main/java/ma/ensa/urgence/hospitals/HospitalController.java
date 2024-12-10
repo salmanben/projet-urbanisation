@@ -27,6 +27,10 @@ public class HospitalController {
     public List<Hospital> getByCode(@PathVariable("code") String code) {
         return hospitalService.getHospitalsByCode(code);
     }
+    @GetMapping("/codes")
+    public List<CodeDto> getCodes() {
+        return hospitalService.getCodes();
+    }
 
     @GetMapping("/me")
     public Hospital getHospitalInfo() {

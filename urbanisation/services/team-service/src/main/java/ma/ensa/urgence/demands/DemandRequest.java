@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 
 
-public class Demand {
+public class DemandRequest {
 
     private int id;
     private String ref;
@@ -24,10 +24,10 @@ public class Demand {
 
     // getters setters
 
-    public Demand() {
+    public DemandRequest() {
     }
 
-    public Demand(int id, String ref, String cin, long latitude, long longitude, String severityLevel, String description, String status, int categoryId, LocalDateTime createdAt) {
+    public DemandRequest(int id, String ref, String cin, long latitude, long longitude, String severityLevel, String description, String status, int categoryId, LocalDateTime createdAt) {
         this.id = id;
         this.ref = ref;
         this.cin = cin;

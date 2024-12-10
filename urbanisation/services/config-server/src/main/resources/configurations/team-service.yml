@@ -11,5 +11,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-
+  application:
+    services:
+      emergency-service:
+        url: http://localhost:8081/api/emergency
+      hospital-service:
+        url: http://localhost:8081/api/hospital
 

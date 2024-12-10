@@ -28,5 +28,11 @@ public class DemandService {
                 new ParameterizedTypeReference<List<DemandResponse>>() {
                 });
         return response.getBody();
+
     }
+
+    public List<Object> getValidatedDemands() {
+        return restTemplate.getForObject(emergencyServiceUrl + "/demands/validated-demands", List.class);
+    }
+    
 }
