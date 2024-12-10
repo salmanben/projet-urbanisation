@@ -1,25 +1,23 @@
 package ma.ensa.urgence.demands;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DemandResponse {
+public class DemandsCitizen {
 
     private int id;
     private String ref;
-    private String cin;
+    private String description;
     private long latitude;
     private long longitude;
     private String severityLevel;
-    private String city;
-    private String description;
-    private int categoryId;
+    private String status;
+    private CategoryDemand category;
     private LocalDateTime createdAt;
-
 }

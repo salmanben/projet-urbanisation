@@ -18,7 +18,7 @@ public class NotificationsConsumer {
         this.demandDao = demandDao;
     }
 
-    @KafkaListener(topics = "citizen-topic")
+    //@KafkaListener(topics = "citizen-topic")
     public void consumeOrderNotification(DemandRequest demandRequest) {
         Demand demand = new Demand();
         demand.setCin(demandRequest.getCin());

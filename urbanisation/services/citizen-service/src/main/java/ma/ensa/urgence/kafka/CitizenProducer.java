@@ -16,7 +16,7 @@ public class CitizenProducer {
     }
 
     public void sendCitizenDemand(DemandRequest demandRequest) {
-        kafkaTemplate.send("citizen-topic", demandRequest);
+      //  kafkaTemplate.send("citizen-topic", demandRequest);
     }
     
 }

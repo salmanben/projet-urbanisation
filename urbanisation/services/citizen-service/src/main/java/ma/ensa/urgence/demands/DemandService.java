@@ -17,7 +17,10 @@ public class DemandService {
         this.restTemplate = restTemplate;
     }
 
-    public List<DemandResponse> getDemands(String cin){
+    public void storeDemand(DemandRequest demandRequest){
+        restTemplate.postForObject(emergencyServiceUrl + "/demands", demandRequest, Object.class);
+    }
+    public List<Object> getDemands(String cin){
         return restTemplate.getForObject(emergencyServiceUrl + "/demands/" + cin, List.class);
     }
 }

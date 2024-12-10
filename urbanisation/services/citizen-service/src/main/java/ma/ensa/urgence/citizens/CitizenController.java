@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ma.ensa.urgence.categories.CategoryResponse;
 import ma.ensa.urgence.categories.CategoryService;
 import ma.ensa.urgence.demands.DemandRequest;
-import ma.ensa.urgence.demands.DemandResponse;
 import ma.ensa.urgence.demands.DemandService;
 import ma.ensa.urgence.kafka.CitizenProducer;
 
@@ -50,11 +49,11 @@ public class CitizenController {
 
     @PostMapping("/send-demand")
     public void addDemand(@RequestBody DemandRequest demandRequest) {
-        citizenProducer.sendCitizenDemand(demandRequest);
+        demandeService.storeDemand(demandRequest);
     }
 
     @PostMapping("/get-demands/{cin}")
-    public List<DemandResponse> getDemands(@PathVariable String cin) {
+    public List<Object> getDemands(@PathVariable String cin) {
         return demandeService.getDemands(cin);
     }
 }
