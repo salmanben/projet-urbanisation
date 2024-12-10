@@ -109,6 +109,7 @@ public class DemandService {
         List<ValidatedDemandResponse> validatedDemandResponses = new ArrayList<>();
         teamsAssignments.forEach(teamsAssignment -> {
             ValidatedDemandResponse validatedDemandResponse = new ValidatedDemandResponse();
+            validatedDemandResponse.setId(teamsAssignment.getDemand().getId());
             validatedDemandResponse.setCreatedAt(teamsAssignment.getDemand().getCreatedAt());
             CategoryDemand category = restTemplate.getForObject(categoryServiceUrl + "/" +teamsAssignment.getDemand().getCategoryId(),
                     CategoryDemand.class);

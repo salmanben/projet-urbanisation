@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ValidatedDemandResponse {
+    private int id;
     private LocalDateTime createdAt;
     private Request request;
     private String severityLevel;
