@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TeamsAssignmentDao  extends JpaRepository<TeamsAssignment, Integer> {
 
-    List<TeamsAssignment> findByTeamId(int id);
-    TeamsAssignment findByDemandId(int id);
+    List<TeamsAssignment> findByTeamIdOrderByIdDesc(int id);
+    TeamsAssignment findByDemandIdOrderByIdDesc(int id);
     
 }

@@ -97,7 +97,7 @@ public class DemandService {
                     CitizenDemand.class);
             validatedDemandResponse.setCitoyen(citizen);
             validatedDemandResponse.setSeverityLevel(demand.getSeverityLevel());
-            TeamsAssignment teamsAssignment = teamsAssignmentDao.findByDemandId(demand.getId());
+            TeamsAssignment teamsAssignment = teamsAssignmentDao.findByDemandIdOrderByIdDesc(demand.getId());
             TeamDemand team = restTemplate.getForObject(teamServiceUrl + "/" + teamsAssignment.getTeamId(),
                     TeamDemand.class);
             System.out.println("\n\n\nTeam: " + team + "\n\n");
@@ -109,8 +109,9 @@ public class DemandService {
         });
         return validatedDemandResponses;
     }
+    
     public List<ValidatedDemandResponse> getTeamDemands(int id) {
-        List<TeamsAssignment> teamsAssignments =  teamsAssignmentDao.findByTeamId(id);
+        List<TeamsAssignment> teamsAssignments =  teamsAssignmentDao.findByTeamIdOrderByIdDesc(id);
         List<ValidatedDemandResponse> validatedDemandResponses = new ArrayList<>();
         teamsAssignments.forEach(teamsAssignment -> {
             ValidatedDemandResponse validatedDemandResponse = new ValidatedDemandResponse();

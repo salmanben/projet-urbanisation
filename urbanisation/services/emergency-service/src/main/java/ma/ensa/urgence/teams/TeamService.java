@@ -64,7 +64,7 @@ public class TeamService {
 
 
     public void validAssignment(int id) {
-        TeamsAssignment teamsAssignment = teamsAssignmentDao.findByDemandId(id);
+        TeamsAssignment teamsAssignment = teamsAssignmentDao.findByDemandIdOrderByIdDesc(id);
         teamsAssignment.setStatus("ACCEPTÉ");
         teamsAssignmentDao.save(teamsAssignment);
     }

@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface HospitalsAssignmentDao extends JpaRepository<HospitalsAssignment, Integer> {
 
-    List<HospitalsAssignment> findByTeamId(int teamId);
-    List<HospitalsAssignment> findByHospitalId(int hospitalId);
+    List<HospitalsAssignment> findByTeamIdOrderByIdDesc(int teamId);
+    List<HospitalsAssignment> findByHospitalIdOrderByIdDesc(int hospitalId);
     
 }

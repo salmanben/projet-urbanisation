@@ -48,12 +48,12 @@ public class HospitalsAssignmentService {
     }
 
     public List<HospitalsAssignment> getTeamHospitalsAssigments(int id) {
-        return hospitalsAssignmentDao.findByTeamId(id);
+        return hospitalsAssignmentDao.findByTeamIdOrderByIdDesc(id);
     }
 
     public List<HospitalDemand> getHospitalDemands(int id) {
         List<HospitalsAssignment> hospitalsAssignments
-         = hospitalsAssignmentDao.findByHospitalId(id);
+         = hospitalsAssignmentDao.findByHospitalIdOrderByIdDesc(id);
         List<HospitalDemand> hospitalDemands = new ArrayList<>();
         hospitalsAssignments.forEach(hospitalsAssignment -> {
             HospitalDemand hospitalDemand = new HospitalDemand();
