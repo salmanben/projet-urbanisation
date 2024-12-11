@@ -15,5 +15,6 @@ public class HospitalResponse {
     private int userId;
     private long latitude;
     private long longitude;
+    
     private String name;
 }

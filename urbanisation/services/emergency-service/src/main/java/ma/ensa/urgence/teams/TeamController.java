@@ -54,7 +54,7 @@ public class TeamController {
     // assign hospital
     @PostMapping("/{id}/assign-hospital")
     public HospitalResponse assignHospital(@RequestBody AssignHospitalRequest assignHospitalRequest,
-    @PathVariable int teamId) {
+    @PathVariable("id") int teamId) {
         System.out.println("\n\nassignHospital Code: " + assignHospitalRequest.getCode()  + "\n\n");
         return teamService.assignHospital(assignHospitalRequest, teamId);
     }
