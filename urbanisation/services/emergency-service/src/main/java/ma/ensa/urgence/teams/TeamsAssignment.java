@@ -30,6 +30,6 @@ public class TeamsAssignment {
     @JsonProperty("team_id")
     private int teamId;
     private String status;
-    @JsonProperty("updated_at")
-    private LocalDateTime updatedAt;
+    @JsonProperty("created_at")
+    private LocalDateTime createdAt;
 }

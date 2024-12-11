@@ -54,7 +54,7 @@ public class TeamService {
         teamsAssignment.setDemand(demand);
         teamsAssignment.setTeamId(teamResponse.getId());
         teamsAssignment.setStatus("EN ATTENTE");
-        teamsAssignment.setUpdatedAt(java.time.LocalDateTime.now());
+        teamsAssignment.setCreatedAt(java.time.LocalDateTime.now());
         teamsAssignmentDao.save(teamsAssignment);
         return teamResponse;
 

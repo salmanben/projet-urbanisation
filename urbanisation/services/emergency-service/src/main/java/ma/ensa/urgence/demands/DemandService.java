@@ -86,10 +86,13 @@ public class DemandService {
         List<ValidatedDemandResponse> validatedDemandResponses = new ArrayList<>();
         demands.forEach(demand -> {
             ValidatedDemandResponse validatedDemandResponse = new ValidatedDemandResponse();
+            validatedDemandResponse.setId(demand.getId());
             validatedDemandResponse.setCreatedAt(demand.getCreatedAt());
             CategoryDemand category = restTemplate.getForObject(categoryServiceUrl + "/" + demand.getCategoryId(),
                     CategoryDemand.class);
-            validatedDemandResponse.setRequest(new Request(demand.getRef(), category));
+            validatedDemandResponse.setRef(demand.getRef());
+            validatedDemandResponse.setCategory(category);
+
             CitizenDemand citizen = restTemplate.getForObject(citizenServiceUrl + "/cin/" + demand.getCin(),
                     CitizenDemand.class);
             validatedDemandResponse.setCitoyen(citizen);
@@ -98,7 +101,9 @@ public class DemandService {
             TeamDemand team = restTemplate.getForObject(teamServiceUrl + "/" + teamsAssignment.getTeamId(),
                     TeamDemand.class);
             System.out.println("\n\n\nTeam: " + team + "\n\n");
-            validatedDemandResponse.setTeam(new TeamDemand(team.getName(), team.getPhone()));
+            validatedDemandResponse.setTeam(new TeamDemand(team.getId(), team.getName(), team.getPhone(),
+            teamsAssignment.getStatus(), teamsAssignment.getCreatedAt()
+            ));
             validatedDemandResponse.setStatus(demand.getStatus());
             validatedDemandResponses.add(validatedDemandResponse);
         });
@@ -113,7 +118,8 @@ public class DemandService {
             validatedDemandResponse.setCreatedAt(teamsAssignment.getDemand().getCreatedAt());
             CategoryDemand category = restTemplate.getForObject(categoryServiceUrl + "/" +teamsAssignment.getDemand().getCategoryId(),
                     CategoryDemand.class);
-            validatedDemandResponse.setRequest(new Request(teamsAssignment.getDemand().getRef(), category));
+            validatedDemandResponse.setRef(teamsAssignment.getDemand().getRef());
+            validatedDemandResponse.setCategory(category);
             CitizenDemand citizen = restTemplate.getForObject(citizenServiceUrl + "/cin/" + teamsAssignment.getDemand().getCin(),
                     CitizenDemand.class);
             validatedDemandResponse.setCitoyen(citizen);

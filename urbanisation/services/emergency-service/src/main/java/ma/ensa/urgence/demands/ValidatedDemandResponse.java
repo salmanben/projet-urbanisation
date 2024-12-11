@@ -12,19 +12,12 @@ import lombok.NoArgsConstructor;
 public class ValidatedDemandResponse {
     private int id;
     private LocalDateTime createdAt;
-    private Request request;
+    private String ref;
     private String severityLevel;
+    private String status;
+    private CategoryDemand category;
     private CitizenDemand citoyen;
     private TeamDemand team;
-    private String status;
-}
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-class Request {
-    private String ref;
-    private CategoryDemand category;
 }
 
 
