@@ -1,13 +1,24 @@
 package ma.ensa.urgence.teams;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import ma.ensa.urgence.demands.CategoryDemand;
+import ma.ensa.urgence.demands.CitizenDemand;
 import ma.ensa.urgence.demands.DemandRequest;
+import ma.ensa.urgence.demands.HistoryResponse;
+import ma.ensa.urgence.demands.HospitalAssignment;
+import ma.ensa.urgence.demands.HospitalAssignmentDto;
 import ma.ensa.urgence.hospitals.AssignHospitalRequest;
+import ma.ensa.urgence.hospitals.Hospital;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale.Category;
 
 @Service
 public class TeamService {
@@ -18,6 +29,12 @@ public class TeamService {
     private String emergencyServiceUrl;
     @Value("${spring.application.services.hospital-service.url}")
     private String hospitalServiceUrl;
+    // citizen-service
+    @Value("${spring.application.services.citizen-service.url}")
+    private String citizenServiceUrl;
+    // category
+    @Value("${spring.application.services.category-service.url}")
+    private String categoryServiceUrl;
 
     public TeamService(TeamDao teamDao, RestTemplate restTemplate) {
         this.teamDao = teamDao;
@@ -35,7 +52,6 @@ public class TeamService {
     public Team getTeamByUserId(int userId) {
         return teamDao.findByUserId(userId);
     }
-
 
     public Team assignTeam(DemandRequest demand) {
         String severityLevel = demand.getSeverityLevel();
@@ -103,8 +119,68 @@ public class TeamService {
         restTemplate.postForObject(emergencyServiceUrl + "/teams/valid-assignment/" + id, null, Void.class);
     }
 
-    public Object assignHospital(AssignHospitalRequest assignHospitalRequest) {
-        return restTemplate.postForObject(emergencyServiceUrl + "/teams/assign-hospital", assignHospitalRequest, Object.class);
+    public Object assignHospital(AssignHospitalRequest assignHospitalRequest, int id) {
+        return restTemplate.postForObject(emergencyServiceUrl + "/teams/" + id + "/assign-hospital",
+                assignHospitalRequest, Object.class);
+    }
+
+    public List<HistoryResponse> getHistory(int userId) {
+        // Fetch hospital assignments with proper type
+        ResponseEntity<List<HospitalAssignment>> responseEntity = restTemplate.exchange(
+                emergencyServiceUrl + "/teams/" + userId + "/history",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<HospitalAssignment>>() {
+                });
+        List<HospitalAssignment> hospitalAssignments = responseEntity.getBody();
+
+        // Check for null or empty result
+        if (hospitalAssignments == null || hospitalAssignments.isEmpty()) {
+            System.out.println("No hospital assignments found.");
+            return new ArrayList<>();
+        }
+
+        System.out.println("Hospital Assignments Count: " + hospitalAssignments.size());
+
+        List<HistoryResponse> historyResponses = new ArrayList<>();
+
+        // Process each hospital assignment
+        hospitalAssignments.forEach(hospitalAssignment -> {
+            System.out.println("Processing Hospital Assignment");
+
+            HistoryResponse historyResponse = new HistoryResponse();
+
+            // Fetch category details
+            CategoryDemand categoryDemand = restTemplate.getForObject(
+                    categoryServiceUrl + "/" + hospitalAssignment.getDemand().getCategoryId(),
+                    CategoryDemand.class);
+            historyResponse.setCategory(categoryDemand);
+
+            // Set demand details
+            historyResponse.setDemand(hospitalAssignment.getDemand());
+
+            // Fetch citizen details
+            CitizenDemand citizenDemand = restTemplate.getForObject(
+                    citizenServiceUrl + "/cin/" + hospitalAssignment.getDemand().getCin(),
+                    CitizenDemand.class);
+            historyResponse.setCitoyen(citizenDemand);
+
+            // Fetch hospital details
+            Hospital hospital = restTemplate.getForObject(
+                    hospitalServiceUrl + "/" + hospitalAssignment.getHospitalId(),
+                    Hospital.class);
+
+            HospitalAssignmentDto hospitalAssignmentDto = new HospitalAssignmentDto();
+            hospitalAssignmentDto.setHospital(hospital);
+            hospitalAssignmentDto.setCode(hospitalAssignment.getCode());
+            hospitalAssignmentDto.setCreatedAt(hospitalAssignment.getCreatedAt());
+            hospitalAssignmentDto.setStatus(hospitalAssignment.getStatus());
+
+            historyResponse.setHospital(hospitalAssignmentDto);
+            historyResponses.add(historyResponse);
+        });
+
+        return historyResponses;
     }
 
 }

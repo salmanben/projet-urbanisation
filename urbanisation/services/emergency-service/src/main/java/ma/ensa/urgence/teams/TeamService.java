@@ -69,7 +69,7 @@ public class TeamService {
         teamsAssignmentDao.save(teamsAssignment);
     }
 
-    public HospitalResponse assignHospital(AssignHospitalRequest assignHospitalRequest) {
+    public HospitalResponse assignHospital(AssignHospitalRequest assignHospitalRequest, int teamId) {
         List<HospitalResponse> hospitals = restTemplate.exchange(
                 hospitalServiceUrl + "/code/" + assignHospitalRequest.getCode(),
                 HttpMethod.GET,
@@ -99,10 +99,12 @@ public class TeamService {
         System.out.println("\n\n\n222222\n\n");
 
         HospitalsAssignment hospitalAssignment = new HospitalsAssignment();
-        hospitalAssignment.setDemandId(assignHospitalRequest.getDemandId());
+        hospitalAssignment.setDemand(demand);
         hospitalAssignment.setCode(assignHospitalRequest.getCode());
         hospitalAssignment.setHospitalId(nearestHospital.getId());
         hospitalAssignment.setCreatedAt(java.time.LocalDateTime.now());
+        hospitalAssignment.setStatus("EN ATTENTE");
+        hospitalAssignment.setTeamId(teamId);
         hospitalsAssignmentService.storeHospitalAssignment(hospitalAssignment);
 
         // Préparer la réponse

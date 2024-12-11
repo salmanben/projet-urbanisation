@@ -17,4 +17,8 @@ spring:
         url: http://localhost:8081/api/emergency
       hospital-service:
         url: http://localhost:8081/api/hospital
+      citizen-service:
+        url: http://localhost:8081/api/citizen
+      category-service:
+        url: http://localhost:8081/api/category
 

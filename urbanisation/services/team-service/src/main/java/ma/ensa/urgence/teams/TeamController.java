@@ -1,7 +1,6 @@
 package ma.ensa.urgence.teams;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ma.ensa.urgence.demands.DemandRequest;
+import ma.ensa.urgence.demands.HistoryResponse;
 import ma.ensa.urgence.hospitals.AssignHospitalRequest;
 
 import java.util.HashMap;
@@ -38,6 +38,14 @@ public class TeamController {
         Long idLong = jwt.getClaim("id");
         int id = idLong.intValue();
         return teamService.getDemands(id);
+    }
+
+    @GetMapping("/history")
+    public List<HistoryResponse> getHistory(@AuthenticationPrincipal Jwt jwt) {
+        Long idLong = jwt.getClaim("id");
+        int id = idLong.intValue();
+        Team team = teamService.getTeamByUserId(id);
+        return teamService.getHistory(team.getId());
     }
 
     @GetMapping("/me")
@@ -71,8 +79,12 @@ public class TeamController {
     }
 
     @PostMapping("/assign-hospital")
-    public Object assignHospital(@RequestBody AssignHospitalRequest assignHospital) {
-        return teamService.assignHospital(assignHospital);
+    public Object assignHospital(@RequestBody AssignHospitalRequest assignHospital,
+            @AuthenticationPrincipal Jwt jwt) {
+        Long idLong = jwt.getClaim("id");
+        int id = idLong.intValue();
+        Team team = teamService.getTeamByUserId(id);
+        return teamService.assignHospital(assignHospital, team.getId());
     }
 
 }
