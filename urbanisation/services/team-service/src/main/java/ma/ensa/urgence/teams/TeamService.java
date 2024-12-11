@@ -54,6 +54,7 @@ public class TeamService {
     }
 
     public Team assignTeam(DemandRequest demand) {
+        System.out.println("\n\nDemand: " + demand);
         String severityLevel = demand.getSeverityLevel();
         double demandLongitude = demand.getLongitude();
         double demandLatitude = demand.getLatitude();
