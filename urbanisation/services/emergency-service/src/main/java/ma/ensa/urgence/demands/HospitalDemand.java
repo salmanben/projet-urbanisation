@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HospitalDemand {
+    private int id;
     private DemandRequest demandRequest;
     private CitizenDemand citizenDemand;
     private CategoryDemand categoryDemand;

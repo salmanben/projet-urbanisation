@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +23,11 @@ public class HospitalController {
     @GetMapping("/{id}/demands")
     public List<HospitalDemand> getHospitalDemands(@PathVariable int id) {
         return hospitalAssignmentService.getHospitalDemands(id);
+    }
+
+    @PostMapping("/handle-demand")
+    public void handleDemand(@RequestBody HandleDemandRequest handleDemandRequest){
+        hospitalAssignmentService.handleDemand(handleDemandRequest);
     }
 
     

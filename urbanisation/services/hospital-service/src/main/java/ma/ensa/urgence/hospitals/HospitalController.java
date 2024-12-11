@@ -3,6 +3,8 @@ package ma.ensa.urgence.hospitals;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -49,5 +51,10 @@ public class HospitalController {
 
         System.out.println("\n\nUser ID: " + id);
         return hospitalService.getDemands(id);
+    }
+
+    @PostMapping("/handle-demand")
+    public void HandleDemand(@RequestBody HandleDemandRequest handleDemandRequest){
+        hospitalService.handleDemand(handleDemandRequest);
     }
 }

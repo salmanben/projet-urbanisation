@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DemandRequest {
 
+    private int id;
     private String cin;
     private long latitude;
     private long longitude;

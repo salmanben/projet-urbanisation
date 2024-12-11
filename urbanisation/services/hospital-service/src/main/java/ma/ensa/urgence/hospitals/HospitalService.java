@@ -1,12 +1,11 @@
 package ma.ensa.urgence.hospitals;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
-
 
 @Service
 public class HospitalService {
@@ -17,7 +16,6 @@ public class HospitalService {
 
     @Value("${spring.application.services.emergency-service.url}")
     private String emergencyServiceUrl;
-
 
     public HospitalService(HospitalDao hospitalDao, CodeDao codeDao, RestTemplate restTemplate) {
         this.hospitalDao = hospitalDao;
@@ -35,7 +33,7 @@ public class HospitalService {
 
     public List<Hospital> getHospitalsByCode(String code) {
         Code codeEntity = codeDao.findByCode(code);
-        if(codeEntity == null) {
+        if (codeEntity == null) {
             return null;
         }
         return codeEntity.getHospitals();
@@ -48,10 +46,16 @@ public class HospitalService {
     }
 
     public List<Object> getDemands(int id) {
-        Hospital hospital =  hospitalDao.findByUserId(id);
-        System.out.println("\n\n" + emergencyServiceUrl + "/hospitals/"+ hospital.getId() + "/demands");
-        List<Object> demands = restTemplate.getForObject(emergencyServiceUrl + "/hospitals/"+ hospital.getId() + "/demands", List.class);
+        Hospital hospital = hospitalDao.findByUserId(id);
+        System.out.println("\n\n" + emergencyServiceUrl + "/hospitals/" + hospital.getId() + "/demands");
+        List<Object> demands = restTemplate
+                .getForObject(emergencyServiceUrl + "/hospitals/" + hospital.getId() + "/demands", List.class);
 
         return demands;
+    }
+
+    public void handleDemand(HandleDemandRequest handleDemandRequest) {
+       // hospitalService.handleDemand(handleDemandRequest);
+       restTemplate.postForObject(emergencyServiceUrl + "/hospitals/handle-demand", handleDemandRequest, Void.class);
     }
 }

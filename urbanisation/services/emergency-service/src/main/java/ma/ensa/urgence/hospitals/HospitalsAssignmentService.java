@@ -14,6 +14,7 @@ import ma.ensa.urgence.demands.CategoryDemand;
 import ma.ensa.urgence.demands.CitizenDemand;
 import ma.ensa.urgence.demands.Demand;
 import ma.ensa.urgence.demands.DemandRequest;
+import ma.ensa.urgence.demands.DemandService;
 import ma.ensa.urgence.demands.HospitalDemand;
 
 @Service
@@ -21,6 +22,7 @@ public class HospitalsAssignmentService {
 
     private final HospitalsAssignmentDao hospitalsAssignmentDao;
     private final RestTemplate restTemplate;
+    private final DemandService demandService;
     @Value("${spring.application.services.team-service.url}")
     private String teamServiceUrl;
     @Value("${spring.application.services.hospital-service.url}")
@@ -32,9 +34,13 @@ public class HospitalsAssignmentService {
     @Value("${spring.application.services.citizen-service.url}")
     private String citizenServiceUrl;
 
-    public HospitalsAssignmentService(HospitalsAssignmentDao hospitalsAssignmentDao, RestTemplate restTemplate) {
+    public HospitalsAssignmentService(HospitalsAssignmentDao hospitalsAssignmentDao,
+    DemandService demandService
+    , RestTemplate restTemplate) {
         this.hospitalsAssignmentDao = hospitalsAssignmentDao;
         this.restTemplate = restTemplate;
+        this.demandService = demandService;
+
     }
 
     public void storeHospitalAssignment(HospitalsAssignment hospitalsAssignment) {
@@ -51,8 +57,10 @@ public class HospitalsAssignmentService {
         List<HospitalDemand> hospitalDemands = new ArrayList<>();
         hospitalsAssignments.forEach(hospitalsAssignment -> {
             HospitalDemand hospitalDemand = new HospitalDemand();
+            hospitalDemand.setId(hospitalsAssignment.getId());
             DemandRequest demandRequest = new DemandRequest();
             Demand demand = hospitalsAssignment.getDemand();
+            demandRequest.setId(demand.getId());
             demandRequest.setCin(demand.getCin());
             demandRequest.setLatitude(demand.getLatitude());
             demandRequest.setLongitude(demand.getLongitude());
@@ -77,5 +85,60 @@ public class HospitalsAssignmentService {
         });
 
         return hospitalDemands;
+    }
+
+    public void handleDemand(HandleDemandRequest handleDemandRequest){
+        String status = handleDemandRequest.getStatus();
+        int id = handleDemandRequest.getId();
+        HospitalsAssignment hospitalsAssignment = hospitalsAssignmentDao.findById(id).get();
+        if(!status.equals("ACCEPTÉ")){
+           assignHospital(hospitalsAssignment.getHospitalId(), hospitalsAssignment.getCode(),
+            hospitalsAssignment.getDemand(), hospitalsAssignment);
+        }
+        else{
+            hospitalsAssignment.setStatus(status);
+            hospitalsAssignmentDao.save(hospitalsAssignment);
+
+        }
+    }
+    
+    public void assignHospital(int hospitalId, String code, Demand demand,
+     HospitalsAssignment hospitalsAssignment) {
+        List<HospitalResponse> hospitals = restTemplate.exchange(
+                hospitalServiceUrl + "/code/" + code,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<HospitalResponse>>() {
+                }).getBody();
+
+
+
+        double demandLatitude = demand.getLatitude();
+        double demandLongitude = demand.getLongitude();
+
+        // Trouver l'hôpital le plus proche
+        HospitalResponse nearestHospital = hospitals.stream()
+                .filter(hospital-> hospital.getId() != hospitalId)
+                .min((h1, h2) -> Double.compare(
+                        calculateDistance(demandLatitude, demandLongitude, h1.getLatitude(), h1.getLongitude()),
+                        calculateDistance(demandLatitude, demandLongitude, h2.getLatitude(), h2.getLongitude())))
+                .orElseThrow(() -> new RuntimeException("Aucun hôpital trouvé après comparaison des distances."));
+        System.out.println("\n\n\n222222\n\n");
+
+        hospitalsAssignment.setHospitalId(nearestHospital.getId());
+        storeHospitalAssignment(hospitalsAssignment);
+
+    }
+
+    private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        final int EARTH_RADIUS = 6371;
+
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                        * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return EARTH_RADIUS * c;
     }
 }
