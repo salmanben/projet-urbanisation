@@ -68,6 +68,7 @@ public class HospitalsAssignmentService {
             demandRequest.setDescription(demand.getDescription());
             demandRequest.setCategoryId(demand.getCategoryId());
             demandRequest.setCreatedAt(demand.getCreatedAt());
+            demandRequest.setRef(demand.getRef());
             hospitalDemand.setDemandRequest(demandRequest);
             CategoryDemand categoryDemand = restTemplate.exchange(categoryServiceUrl + "/" + demand.getCategoryId(),
                     HttpMethod.GET, null, new ParameterizedTypeReference<CategoryDemand>() {

@@ -18,6 +18,7 @@ public class DemandRequest {
     private long longitude;
     private String severityLevel;
     private String description;
+    private String ref;
     private int categoryId;
     private LocalDateTime createdAt;
 
