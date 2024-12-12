@@ -125,7 +125,7 @@ public class DemandService {
                     CitizenDemand.class);
             validatedDemandResponse.setCitoyen(citizen);
             validatedDemandResponse.setSeverityLevel(teamsAssignment.getDemand().getSeverityLevel());
-            validatedDemandResponse.setStatus(teamsAssignment.getDemand().getStatus());
+            validatedDemandResponse.setStatus(teamsAssignment.getStatus());
             validatedDemandResponses.add(validatedDemandResponse);
         });
         return validatedDemandResponses;
